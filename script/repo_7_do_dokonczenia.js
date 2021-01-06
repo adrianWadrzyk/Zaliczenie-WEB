@@ -4,24 +4,30 @@ console.log(...tab1);
 
 // Tablica zad2;
 const tab2 = [5,3,2,1,5,"ala"];
+
 //Zad2.1
 for(let i = 0; i < 2; i++)
         console.log(tab2[i]);
+
 //Zad2.2
 console.log(tab2[tab2.length-1]);
+
 //Zad2.3
 console.log(...tab2);
+
 //Zad2.4
 for (let i = 0; i < tab2.length; i++) {
     if(i%2 == 0)
         console.log(tab2[i])    
 }
+
 //Zad2.5 
 for (let i = 0; i < tab2.length; i++) {
     const element = tab2[i];
     if(typeof(element)== "string")
         console.log(element);
 }
+
 //Zad2.6
 for (let i = 0; i < tab2.length; i++) {
     const element = tab2[i];
@@ -30,7 +36,7 @@ for (let i = 0; i < tab2.length; i++) {
 }
 
 
-//Tablica zad3
+//Tablica zad 3
 tab3 = [1,2,3,4,5,6];
 //Zad3.1, 3.2, 3.3, 3.4, 3.5, 3.6, 3.7
 let sum = 0;
@@ -104,7 +110,7 @@ writeOddAvg([12, 23, 10, 8]);
 
 // Zad.7 
 
-function sortTable(a, b) { 
+function compare(a, b) { 
     if (a < b) {
         return -1;
     }
@@ -114,17 +120,42 @@ function sortTable(a, b) {
     return 0;
 }
 
+function sortTable(table) { 
+    return table.sort(compare);
+}
 
-/*
-for(var i=0; i<=table.length;i++)
-    var helper = table[i];
-    for(let j=0; j<=table.length;j++)
-    {
-        if(table[i] > table[j])
+console.log(sortTable([1,2,3,10,2,3]));
+
+
+// Zad 8 do zrobienia 
+
+
+// Zad 9
+
+function deleteElement(table, element) { 
+    table.forEach(el => {
+        if(el == element)
         {
-            table[i] = table[j]
-            table[j] = helper;
+            let index = table.indexOf(el);
+            table.splice(index,1);
         }
-    }
+    });
+    console.log(table);
+    return table;
+}
 
-console.log(table)*/
+deleteElement([1,2,1,3], 1);
+
+// Zad 10
+function tableNumbers(table, param) {
+    let tableRevers = []; 
+    table.forEach(element => {
+        if(element == param)
+            element *= -1;
+        tableRevers.push(element);
+    });
+    console.log(tableRevers);
+    return tableRevers;
+}
+
+tableNumbers([1,2,3,2,2,6,2],2);
