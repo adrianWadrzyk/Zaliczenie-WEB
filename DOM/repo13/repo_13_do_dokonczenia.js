@@ -57,14 +57,16 @@ function checkInput(value) {
 }
 
 //Zad 5 
+function counter() { 
+    var divEx5 = document.getElementById('ex5');
+    divEx5.children[0].innerText = ++count;
+    if(count == 10)
+        buttonEx5.removeEventListener("click", counter );
+}
 
-var buttonEx5 = document.getElementById(ex5-button);
-var divEx5 = document.getElementById(ex5);
-buttonEx5.addEventListener("click", () => { 
-    let counter = 0;
-    divEx5.innerText = counter++;
-});
-
+var count = 0;
+buttonEx5 = document.getElementById('ex5-button');
+buttonEx5.addEventListener("click", counter);
 
 // Zad 6 skorzystałem z eventu z zadania 1 obserwującego scroll strony.
 function checkScroll(e) { 
@@ -74,4 +76,3 @@ function checkScroll(e) {
     else 
         document.querySelector('body').style.backgroundColor = 'white';
 }
-

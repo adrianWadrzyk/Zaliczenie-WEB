@@ -18,7 +18,7 @@ console.log(...tab2);
 //Zad2.4
 for (let i = 0; i < tab2.length; i++) {
     if(i%2 == 0)
-        console.log(tab2[i])    
+        console.log(tab2[i]);
 }
 
 //Zad2.5 
@@ -94,7 +94,7 @@ function writeMultipleTable(table) {
     });
 }
 
-writeMultipleTable([10,20,30,20])
+writeMultipleTable([10,20,30,20]);
 
 //Zad 6 
 function writeOddAvg(table) { 
@@ -127,8 +127,19 @@ function sortTable(table) {
 console.log(sortTable([1,2,3,10,2,3]));
 
 
-// Zad 8 do zrobienia 
+// Zad 8 
 
+let exampleArrayA = [7, 6, 3, 4];
+let exampleArrayB = [5, 6, 7, 8];
+
+function sumOfArraysIndex(arrayA, arrayB){
+    let array = [];
+    arrayA.forEach((num, i) =>{
+        array.push(num + arrayB[i]);
+    });
+    console.log(array);
+    return array;
+}
 
 // Zad 9
 

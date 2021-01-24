@@ -1,3 +1,4 @@
+// Zad 1 
 function Person(name, surname, age, country, city, language) { 
     this.name = name;
     this.surname = surname; 
@@ -74,7 +75,7 @@ function Calculator() {
      this.clearMemory = function() { 
         this.memory.splice(0, this.memory.length);
         console.log("Pamięć została usunięta!");
-     }
+     };
 
 }
 
@@ -93,13 +94,29 @@ calc2.add(2,5);
 
 // Zad 3 
 
-function game() { 
-    this.num = 0;
-
-    this.randomNum = function() { 
-        this.num = Math.floor(Math.random());
-        console.log(this.num);
-    }
+function Game ()
+{
+    Game.prototype.number = null;
+    this.rand = function () {
+        return setInterval(()=>{
+            let rand = Math.floor(Math.random() *10 )+1;
+            game_one.__proto__.number = rand;
+            console.log(this.__proto__.number);
+        }, 1000);
+    };
+    this.check = function (){
+        return setInterval (() =>{
+            console.log(this.__proto__.number);
+            if(this.__proto__.number >= 5){
+                console.log('finished');
+                clearInterval(first);
+                clearInterval(second);
+            }
+        }, 1000);
+    };
 }
+let game_one = new Game();
+let game_two = new Game();
 
-var g1 = new game();
+var first = game_one.rand();
+var second = game_two.check();
