@@ -82,3 +82,41 @@ class Calc {
   
   abCalc.passNumbers(2000, 0);
   abCalc.div();
+
+  class LadderSim {
+    constructor(steps) {
+      this.steps = steps;
+      this.currentStep = 0;
+    }
+    
+    moveUp() {
+      this.currentStep = this.currentStep <= 0 ? 1 : ++this.currentStep;
+      if(this.currentStep > this.steps) {
+        this.getOff();
+      } else {
+        console.log(`Jesteś na stopniu nr ${this.currentStep}`);
+      }
+    }
+    
+    moveDown(){
+      this.currentStep = this.currentStep >= this.steps ? this.steps : --this.currentStep;
+      if(this.currentStep <= 0) {
+        this.getOff();
+      }  else {
+        console.log(`Jesteś na stopniu nr ${this.currentStep}`);
+      }
+    }
+    
+    getOff() {
+      console.log('Zszedłeś z drabiny, nie możesz iść dalej');
+    }
+  
+  }
+  
+  const ladder = new LadderSim(12);
+  ladder.moveUp();
+  ladder.moveUp();
+  ladder.moveDown();
+  ladder.moveDown();
+  ladder.moveDown();
+  ladder.moveUp();
