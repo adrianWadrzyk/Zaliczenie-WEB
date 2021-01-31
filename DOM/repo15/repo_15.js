@@ -20,6 +20,12 @@ root.appendChild(list);
 
 // Zad 3 
 
+document.body.addEventListener('click', () => {
+    const lis = document.querySelectorAll('ul li');
+    lis.forEach((child, i) => {
+        if (i % 2 == 0) child.remove();
+    });
+});
 
 // Zad 4 
 var button = document.createElement("button");
@@ -94,7 +100,7 @@ button1.addEventListener("click", () => {
         button1.disabled = true;
     }
     button2.disabled = false;
-})
+});
 
 root.appendChild(list1Ex7);
 root.appendChild(button1);
@@ -111,7 +117,7 @@ button2.addEventListener("click", () => {
         button2.disabled = true;
     }
     button1.disabled = false;
-})
+});
 
 // Zad 8
 function createForm(param) {
@@ -125,13 +131,13 @@ const whichElement = document.createElement('input');
 const whichColor = document.createElement('input');
 const content = document.createElement('input');
 const numbersOfElements = document.createElement('input');
-const makeBr = document.createElement('br')
+const makeBr = document.createElement('br');
 form.appendChild(createForm('Jaki stworzyć element'));
 form.appendChild(whichElement);
-form.appendChild(makeBr)
+form.appendChild(makeBr);
 form.appendChild(createForm('Jakiego koloru ma być element'));
 form.appendChild(whichColor);
-form.appendChild(makeBr)
+form.appendChild(makeBr);
 form.appendChild(createForm('Jaki tekst powinien zawierac?'));
 form.appendChild(content);
 form.appendChild(createForm('Ile ich stworzyć?'));
@@ -152,18 +158,135 @@ buttonex8.addEventListener('click', (event) => {
 });
 form.appendChild(buttonex8);
 
-//zad 9
+// Zadanie 9
+const fieldset = document.createElement('fieldset');
+const table = document.createElement('table');
 
-// zad 10
+const inputs = [{
+    label: 'Imię',
+    id: 'fName',
+    type: 'text'
+}, {
+    label: 'Nazwisko',
+    id: 'name',
+    type: 'text'
+}, {
+    label: 'Wiek',
+    id: 'age',
+    type: 'number'
+}, {
+    label: 'Ilość dzieci',
+    id: 'kids',
+    type: 'number'
+}, {
+    label: 'Płeć',
+    id: 'gender',
+    type: 'text'
+}, {
+    label: 'Więcej',
+    type: 'submit',
+    id: 'more'
+}, {
+    label: 'Utwórz',
+    type: 'submit',
+    id: 'print'
+}];
+
+let data = [];
+
+inputs.forEach(v => {
+    const elInput = document.createElement('input');
+    let label = document.createElement('hr');
+    elInput.style.display = 'block';
+    elInput.type = v.type;
+    elInput.id = v.id || null;
+
+    if (v.type === 'submit') {
+        elInput.value = v.label;
+        elInput.addEventListener('click', (e) => {
+            if (v.id === 'print') {
+                renderTable(e);
+            } else {
+                addRow();
+            }
+        });
+    } else {
+        label = document.createElement('label');
+        label.innerText = v.label;
+        label.for = v.id;
+    }
+    fieldset.appendChild(label);
+
+    fieldset.appendChild(elInput);
+});
+
+function addRow() {
+    const row = [];
+    inputs.forEach((v) => {
+        if (v.type !== 'submit') {
+            const value = document.getElementById(v.id)?.value;
+            row.push(value);
+        }
+    });
+    data.push(row);
+    if (table.children.length > 0) {
+        renderTable();
+    }
+}
+
+function renderTable(e) {
+    e?.preventDefault();
+    table.innerHTML = '';
+    if (data.length > 0) {
+        const dataCells = inputs.filter(v => v.type !== 'submit');
+        const thead = document.createElement('thead');
+        dataCells.forEach(v => {
+            const th = document.createElement('th');
+            th.innerText = v.label;
+            thead.appendChild(th);
+        });
+        table.appendChild(thead);
+        const tbody = document.createElement('tbody');
+        capitalize();
+        data.forEach((v, i) => {
+            const tr = document.createElement('tr');
+            v.forEach(val => {
+                const td = document.createElement('td');
+                td.innerText = val;
+                tr.appendChild(td);
+            })
+            const removeButton = document.createElement('button');
+            removeButton.innerText = 'Usuń';
+            removeButton.addEventListener('click', (e) => {
+                data.splice(i, 1);
+                renderTable();
+            });
+            tr.appendChild(removeButton);
+            tbody.appendChild(tr);
+        });
+        table.appendChild(tbody);
+    }
+}
+
+document.body.appendChild(fieldset);
+document.body.appendChild(table);
+
+// Zadanie 10
+function capitalize() {
+    data = data.map(dat =>
+        dat.map(v => v.charAt(0).toUpperCase() + v.slice(1))
+    );
+}
+
 
 // zad 11 
 function CreateDivWithNumbers(param) {
     const numbersInString = param.match(/[0-9]+/g);
     if (numbersInString.length > 0) {
     const numbers = numbersInString.map(item => Number(item));
-    const addingNumbers = numbers.reduce( (x,y) => x + y )
-    console.log(addingNumbers)
-    const multiplingNumbers = numbers.reduce( (x,y) => x * y )
+    const addingNumbers = numbers.reduce( (x,y) => x + y );
+    console.log(addingNumbers);
+    const multiplingNumbers = numbers.reduce( (x,y) => x * y );
         for (let i = 0; i < multiplingNumbers; i++) {
           const resultDiv = document.createElement("div");
           resultDiv.textContent = param;
@@ -171,4 +294,85 @@ function CreateDivWithNumbers(param) {
           }
        }
     }
-   CreateDivWithNumbers('1a3a2b8bb')
+   CreateDivWithNumbers('1zd12');
+
+// Zad 12
+function createObj(text) {
+    return {
+        string: text
+    };
+}
+
+const objAla = createObj('Ola nie ma kota');
+objAla.alaToOla = function () {
+    if (this.string.includes('Ala')) {
+        this.string = this.string.replaceAll('Ala', 'Ola');
+        console.log(this.string);
+    } else {
+        const div = document.createElement('div');
+        div.innerText = 'Słowo Ala nie występuje w tekście.';
+        document.body.appendChild(div);
+    }
+}
+
+objAla.alaToOla();
+
+// Zad 13
+const dataArray = ['Najlepszą', 'ucz3lnia', 't0 WS31', 'KRAK0W'];
+function LettersCount(arr) {
+    let numberCounter = 0;
+    arr.forEach(v => {
+        const str = v.replace(/[^a-z]/gi, '');
+        numberCounter += str.length;
+    });
+    return numberCounter;
+}
+
+function sumNumbers(arr) {
+    const numbers = arr.map(v => v.match(/[0-9]+/g));
+    const allNumbers = numbers.flat();
+    return allNumbers.reduce((a, b) => Number(a) + Number(b));
+}
+
+function avgNumbers(arr) {
+    const numbers = arr.map(v => v.match(/[0-9]+/g));
+    const allNumbers = numbers.flat().filter(v => v);
+    const sum = allNumbers.reduce((a, b) => Number(a) + Number(b));
+    return sum / allNumbers.length;
+}
+
+console.log(LettersCount(dataArray));
+console.log(sumNumbers(dataArray));
+console.log(avgNumbers(dataArray));
+
+// Zad 14
+let objEx14 = {
+    name: '',
+    surname: '',
+    age : ''
+};
+
+function modifyObj(name, surname, age) {
+    objEx14.name = name;
+    objEx14.surname = surname;
+    objEx14.age = age;
+    objEx14.nameLength = name.length;
+    objEx14.surnameLength = surname.length;
+    objEx14.ageLength = age.length;
+    if (name.length > 5 || surname.length > 5 || age.length > 5) {
+        const btn = document.createElement('button');
+        btn.innerText = 'Reset ex 14';
+        btn.addEventListener('click', (e) => {
+            objEx14 = {
+                name: '',
+                surname: '',
+                age: ''
+            };
+            console.log(objEx14.name, objEx14.surname, objEx14.age);
+        });
+        document.body.appendChild(btn);
+        console.log(objEx14.nameLength, objEx14.surnameLength, objEx14.ageLength);
+    }
+}
+
+modifyObj('Adrian', 'Wądrzyk', '21');

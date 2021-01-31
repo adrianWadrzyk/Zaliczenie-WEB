@@ -76,3 +76,54 @@ function checkScroll(e) {
     else 
         document.querySelector('body').style.backgroundColor = 'white';
 }
+
+const calcButtons = document.querySelectorAll('#calculator button');
+const calcOutput = document.querySelector('#calculator input');
+const numericButtons = [];
+const funcButtons = [];
+let currentCalc = [];
+let calcFinish = false;
+
+calcButtons.forEach((el) => {
+    if (parseInt(el.innerText) || el.innerText === '0') {
+        numericButtons.push(parseInt(el.innerText));
+    } else {
+        funcButtons.push(el.innerText);
+    }
+
+    el.addEventListener('click', () => {
+        if(calcFinish) {
+          calcOutput.value = '';
+          calcFinish = false;
+        }
+        if (funcButtons.includes(el.innerText)) {
+            currentCalc.push(calcOutput.value, el.innerText);
+            console.log(currentCalc);
+            calcOutput.value = calcOutput.value + el.innerText;
+
+            return;
+        }
+        if (currentCalc.length > 1) {
+            doCalc([...currentCalc, el.innerText]);
+            return;
+        }
+        calcOutput.value = calcOutput.value + el.innerText;
+    });
+});
+
+function doCalc(x) {
+    currentCalc = [];
+  calcFinish = true;
+    let result;
+    numbers = [
+        Number(x[0]),
+        Number(x[2])
+    ];
+    switch (x[1]) {
+        case '+': result = numbers[0] + numbers[1]; break;
+        case '-': result = numbers[0] - numbers[1]; break;
+        case '/': result = numbers[0] / numbers[1]; break;
+        case '*': result = numbers[0] * numbers[1]; break;
+    }
+    calcOutput.value = result;
+}

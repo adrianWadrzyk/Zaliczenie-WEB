@@ -36,7 +36,7 @@ for(const key in car2) {
 console.log(car2.fabric.name);
 console.log(car2.fabric.value);
 
-
+//  zad 6
 car2.welcome = function() { 
     console.log("Hello");
 };

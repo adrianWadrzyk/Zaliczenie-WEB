@@ -1,16 +1,17 @@
+// zad 1
 function write() { 
     console.log("Udało się!");
 }
-
+// zad 2
 function withParam(param) { 
     console.log(param);
 }
-
+// zad  3
 function showTab(tab) {
     console.log(...tab);
     return tab;
 }
-
+// zad 4
 function timeString(text) { 
     var licznik = 0;
     var id = setInterval(() => { 
